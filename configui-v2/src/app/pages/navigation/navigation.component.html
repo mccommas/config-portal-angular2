@@ -1,0 +1,51 @@
+<!-- Sidebar begin -->
+<div class="navigation col-xs-3">
+	<!-- Side Bar end -->
+	<section class="sidebar"> 
+		<section class="header" [hidden]="!isLogoVisible">
+			<p><a>Liaison Configuration Manager</a>
+			</p>
+		</section>
+		<section class="breadcrumbTop" [hidden]="isLogoVisible">
+			<div class="col-xs-2">  
+				<span> <a><i class="fa fa-chevron-left"></i></a></span>
+			</div>
+			<div class="topLinkStyle col-xs-10"> 
+				<span class="topLinks"  [ngClass]="{'topLinkActive': !appNameSelected}" id="casName">{{casNameSelected  | characters: 15}}</span>
+				<br>
+				<span class="topLinks"  [ngClass]="{'topLinkActive': appNameSelected}" id="appName">{{appNameSelected   | characters:30}}</span>
+				<!--<span class="topLinks" id="orgName" data-ng-class="navigationCtrl.orgNameSelected!= ''?'topLinkActive':''">{{navigationCtrl.orgNameSelected | limitTo:9}}</span>-->
+			</div>
+		</section>
+
+		<div class="menuAnimate">
+			<section class="navcontrol" id="cas_navigation">
+				<a *ngFor="let casItem of casListItems" uiSref="app" (click)="selectedItem(casItem, 'casName', casItem.casname)">
+					<div class="sidebarNav">
+						<p id="item_{{casItem.id}}">
+							{{casItem.casname}}
+						</p>
+					</div>
+				</a>
+			</section>
+			<section class="navcontrol" id="app_navigation">
+				<a *ngFor="let appItem of applicationListItems" uiSref="org" (click)="selectedItem(appItem, 'appName',appItem.instanceName)">
+					<div class="sidebarNav">
+						<p id="item_{{appItem.id}}">
+							{{appItem.instanceName}}
+						</p>
+					</div>
+				</a>
+			</section>
+			<section class="navcontrol" id="org_navigation">
+				<a *ngFor="let orgItem of organizationListItems" uiSref="programs"  (click)="selectedItem(orgItem, 'orgName', orgItem.organizationName)">
+					<div class="sidebarNav">
+						<p>
+							{{orgItem.organizationName}}
+						</p>
+					</div>
+				</a>
+			</section>
+		</div>
+	</section>
+</div>

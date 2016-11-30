@@ -1,0 +1,306 @@
+<section id="application-setting">
+  <div class="col-xs-12 white-box">
+    <div class="col-xs-12">
+      <small class="required-note pull-right"><i class="fa fa-asterisk"></i> required</small>
+    </div>
+    <div>
+      <form #f="ngForm" name="programEditForm" (ngSubmit)="save(f.value, f.valid)" *ngIf="programDetails" id="programEditForm"
+        novalidate="novalidate" role="form">
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="organization">
+                  Organization 
+                  </label>
+              <input type="text" class="form-control input-sm" value="{{headerData.organization.organizationName}}" name="organization"
+                id="organization" readonly>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <label for="programId">
+                  Program Id
+                  </label>
+              <input type="text" class="form-control input-sm" name="programId" id="programId" value="{{programDetails.id}}" readonly>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <label for="programStatus">
+                  Status
+                  </label>
+              <input type="text" class="form-control input-sm" name="programStatus" id="programStatus" value="{{programDetails.status}}"
+                readonly>
+            </div>
+          </div>
+          <div class="col-xs-7">
+            <div class="form-group programId-field">
+              <label for="programCode">
+                  Program Code
+                  </label>
+              <input type="text" class="form-control input-sm" name="programCode" id="programCode" value="{{programDetails.programId}}"
+                readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group required has-error" [ngClass]="{ 'has-error': !(programName.valid || (programName.pristine && !f.submitted))}">
+              <label class="control-label" for="programName">
+                  Program Name
+                  </label>
+              <input type="text" class="form-control input-sm" id="programName" name="programName" [(ngModel)]="programDetails.programName"
+                #programName="ngModel" required placeholder="Program Name" />
+              <div>
+                <span class="help-block" [hidden]="programName.valid || (programName.pristine && !f.submitted)">
+                     required field
+                     </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group required" [ngClass]="{ 'has-error': !(level.valid || (level.pristine && !f.submitted))}">
+              <label for="level" class="control-label">
+                  Level
+                  </label>
+              <input type="text" class="form-control input-sm" id="level" #level="ngModel" name="level" [(ngModel)]="programDetails.programLevel"
+                required="required">
+              <div>
+                <span class="help-block" [hidden]="level.valid || (level.pristine && !f.submitted)">
+                     required field
+                     </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--*****************************-->
+        <div class="row">
+          <div class="col-xs-3">
+            <div class="form-group required" [ngClass]="{ 'has-error': !(city.valid || (city.pristine && !f.submitted))}">
+              <label class="control-label" for="city">
+                  City 
+                  </label>
+              <input type="text" class="form-control input-sm" #city="ngModel" name="city" id="city" placeholder="City Name" [(ngModel)]="programDetails.city"
+                required="required">
+              <div>
+                <span class="help-block" [hidden]="city.valid || (city.pristine && !f.submitted)">
+                     required field
+                     </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="form-group required"  [ngClass]="{ 'has-error': !(state.valid || (state.pristine && !f.submitted))}">
+              <label for="state" class="control-label">State</label>
+              <select class="form-control input-sm " #state="ngModel" [(ngModel)]="programDetails.state" name="state" id="state" required>
+                  <option value="" data-ng-selected="true">
+                     Please Select
+                  </option>
+                  <option *ngFor="let item of statesList"  [ngValue]="item.valueId">
+                  {{item.valueString}}
+                  </option>
+                  </select>
+                   <div>
+                    <span class="help-block" [hidden]="state.valid || (state.pristine && !f.submitted)">
+                        required field
+                     </span>
+                  </div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <label for="zipcode" class="control-label">
+                  Zipcode
+                  </label>
+              <input type="text" class="form-control input-sm" name="zipCode" id="zipCode" placeholder="Zip Code" [(ngModel)]="programDetails.zipCode">
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <!--*****************************-->
+        <!--*****************************-->
+        <div class="row">
+          <div class="col-xs-6 form-horizontal program-edit">
+            <div class="form-group required"  [ngClass]="{ 'has-error': !(startTerm.valid || (startTerm.pristine && !f.submitted))}">
+              <label for="startTerm" class="col-xs-5 horizontal-left program-edit control-label">
+                  Start Term
+                  </label>
+              <div class="col-xs-7 program-edit">
+                <select class="form-control input-sm" #startTerm="ngModel" [(ngModel)]="programDetails.startTerm" name="startTerm" id="startTerm" required>
+                     <option value="" data-ng-selected="true">Please Select</option>
+                     <option *ngFor="let item of startTerms"  [ngValue]="item.value">
+                     {{item.displayName}}
+                     </option>
+                     </select>
+                                      <div>
+                    <span class="help-block" [hidden]="startTerm.valid || (startTerm.pristine && !f.submitted)">
+                        required field
+                     </span>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6 form-horizontal program-edit">
+            <div class="form-group required" [ngClass]="{ 'has-error': !(academicYear.valid || (academicYear.pristine && !f.submitted))}">
+              <label for="academicYear" class="col-xs-5 horizontal-left control-label">
+                  Start Year
+                  </label>
+              <div class="col-xs-7 program-edit">
+                <input type="text" pattern="[0-9]+" class="form-control input-sm" max="2025" #academicYear="ngModel" name="academicYear"
+                  id="academicYear" [(ngModel)]="programDetails.academicYear" title="Please enter a valid year" required="required"
+                />
+                <div>
+                  <span class="help-block" [hidden]="academicYear.valid || (academicYear.pristine && !f.submitted)">
+                     required field or wrong format 
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--*****************************-->
+        <br/>
+        <!--*****************************-->
+        <div class="row">
+          <div class="col-xs-6 form-horizontal program-edit">
+            <div class="form-group required" [ngClass]="{ 'has-error': !(startDate.valid || (startDate.pristine && !f.submitted))}">
+              <label for="startDate" class="col-xs-5 control-label">
+                  Open Date
+                  </label>
+              <div class="col-xs-7 program-edit">
+                <div class="input-group">
+                  <input #startDate="ngModel" name="startDate" id="startDate" [(ngModel)]="programDetails.startDate" class="form-control" required="required"
+                  />
+                  <span class="input-group-btn">
+                      <button type="button" class="btn btn-default">
+                          <i class="fa fa-calendar"></i>
+                      </button>
+                  </span>
+                  <div>
+                    <span class="help-block" [hidden]="startDate.valid || (startDate.pristine && !f.submitted)">
+                        required field
+                     </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6 form-horizontal program-edit">
+            <div class="adjust-left form-group required" [ngClass]="{ 'has-error': !(txtDeadlineDate.valid || (txtDeadlineDate.pristine && !f.submitted))}">
+              <label class="col-xs-5 horizontal-left control-label" for="deadLine">
+                     Deadline
+                     <!--{{format}}-->
+                  </label>
+              <div class="col-xs-7 program-edit">
+                <div class="input-group">
+                  <input [(ngModel)]="programDetails.deadline" class="form-control" #txtDeadlineDate="ngModel" name="txtDeadlineDate" id="txtDeadlineDate"
+                    (click)="showDeadlineDatepicker = !showDeadlineDatepicker" required="required" />
+                  <span class="input-group-btn">
+                      <button type="button" class="btn btn-default">
+                          <i class="fa fa-calendar"></i>
+                      </button>
+                  </span>
+                  <div>
+                    <span class="help-block" [hidden]="txtDeadlineDate.valid || (txtDeadlineDate.pristine && !f.submitted)">
+                     required field
+                     </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <!--*****************************-->
+        <div class="row">
+          <div class="col-xs-12">
+            <h3>
+              <label>
+                  Additional Information
+                  </label>
+            </h3>
+            <hr/>
+            <div class="col-xs-4">
+              <div class="form-group required" [ngClass]="{ 'has-error': !(programType.valid || (programType.pristine && !f.submitted))}">
+                <label class="control-label" for="programType">
+                     Program Type
+                     </label>
+                <input type="text" required="required" class="form-control input-sm" #programType="ngModel" name="programType" id="programType"
+                  value="Program Type" [(ngModel)]="programDetails.programType" />
+                <div>
+                  <span class="help-block" [hidden]="programType.valid || (programType.pristine && !f.submitted)">
+                     required field
+                     </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label for="delivery">
+                     Delivery
+                     </label>
+                <input type="text" class="form-control input-sm" name="delivery" id="delivery" value="Input Delivery" [(ngModel)]="programDetails.delivery"
+                />
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label for="department">
+                     Department
+                     </label>
+                <input type="text" class="form-control input-sm" name="department" id="department" value="Input Department" [(ngModel)]="programDetails.department">
+              </div>
+            </div>
+            <!--*****************************-->
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label for="track">
+                     Track
+                     </label>
+                <input type="text" class="form-control input-sm" name="track" id="track" value="Input Track" [(ngModel)]="programDetails.track"
+                />
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label for="programConcentration">
+                     Concentration
+                     </label>
+                <input type="text" class="form-control input-sm" name="programConcentration" id="programConcentration" value="Program Concentration"
+                  [(ngModel)]="programDetails.concentration" />
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label for="applicationType">
+                     Application Type
+                     </label>
+                <input type="text" class="form-control input-sm" name="applicationType" id="applicationType" value="Input ApplicationType"
+                  [(ngModel)]="programDetails.applicationType">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--*****************************-->
+        <!--Buttons-->
+        <div class="row">
+          <div class="bottom-bar-edit col-xs-12">
+            <div class="well-edit">
+              <div class="program-edit-btns btn-group">
+                <button type="button" class="btn btn-cancel">
+                     <i class="fa fa-times"></i> Cancel
+                     </button>
+                <button type="button" class="btn btn-reset">
+                     <i class="fa fa-undo"></i> reset
+                     </button>
+                <button type="button" (click)="save(f.value, f.valid)" [disabled]="!f.valid" class="btn btn-save">
+                     <i class="fa fa-check"></i> Save
+                     </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

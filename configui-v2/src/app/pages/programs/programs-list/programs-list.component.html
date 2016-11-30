@@ -1,0 +1,101 @@
+<div class="program-edit-home">
+  <div id="scrollable-area" class="table-responsive pro-org">
+    <table class="table table-striped" data-fixed-table-headers="scrollable-area">
+      <thead>
+        <tr>
+          <th><a>program <i
+					class="fa fa-sort"></i></a>
+          </th>
+          <th>
+            <a>webadmit name <i
+						class="fa fa-sort"></i></a>
+          </th>
+          <th>
+            <a> start date <i class="fa fa-sort"></i></a>
+          </th>
+          <th>
+            <a>deadline <i class="fa fa-sort"></i></a>
+          </th>
+          <th>
+            <a>status <i class="fa fa-sort"></i></a>
+          </th>
+          <th>
+            <a>last update <i
+						class="fa fa-sort"></i></a>
+          </th>
+          <th>
+            &nbsp;
+          </th>
+        </tr>
+      </thead>
+      <tbody id="proTable" data-link="row" class="rowlink">
+        <tr class="animated" *ngFor="let program of OrglistPrograms.programs" (mouseenter)="showActionButtons(program, true)" (mouseleave)="showActionButtons(program, false)">
+          <td>
+            <div>
+              {{program.programName | characters:15}}
+            </div>
+          </td>
+          <td>
+            <div>
+              {{program.waDisplayName == null ? "N/A" : program.waDisplayName | characters:15}}
+            </div>
+          </td>
+          <td>{{program.startDate}}</td>
+          <!--start deadline-->
+          <td [hidden]="program.showButtons">
+            <div class="showDate status-caps">{{program.deadline }}
+            </div>
+          </td>
+          <td [hidden]="program.showButtons">
+            <div class="showDate status-caps">{{program.status == null ? "N/A" : program.status}}
+            </div>
+          </td>
+          <td [hidden]="program.showButtons">
+            <div class="showButtons">{{program.updatedDate}}
+            </div>
+          </td>
+          <td colspan="3" [hidden]="!program.showButtons">
+            <div class="actionbuttons displayInline fadeIn showButtons enter-fadeIn exit-fadeOut speed-700 stagger-100 ">
+              <a><i class="fa fa-angle-double-right"></i>
+	                <span>review</span>
+                  </a>
+            </div>
+            <div class="actionbuttons displayInline showButtons fadeIn enter-fadeIn exit-fadeOut speed-700 stagger-100 buttons-jump">
+              <a><i class="fa fa-trash-o"></i> delete</a>
+            </div>
+            <div class="actionbuttons displayInline showButtons fadeIn enter-fadeIn exit-fadeOut speed-700 stagger-100 buttons-jump">
+              <a uiSref="programedit"><i class="fa fa-pencil"></i> edit</a>
+            </div>
+          </td>
+          <td id="program-arrows">toggle arrows
+            <span></span>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- messages-->
+  <!--Save bar-->
+  <div class="extended-col col-xs-12">
+    <div class="program-edit-btns well">
+      <div class="btn-group pull-left" [hidden]="!showProgramActionButtons">
+        <button type="button" class="btn btn-remove"><i class="fa fa-plus"></i> add
+            </button>
+        <button type="button" class="btn btn-remove"><i class="fa fa-files-o"></i> copy
+            </button>
+      </div>
+
+      <button type="button" appClickOnce (click)="showProgramActionButtons = !showProgramActionButtons" 
+        class="btn btn-remove pull-left">
+            <i class="fa fa-plus"></i> program
+        </button>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div> 

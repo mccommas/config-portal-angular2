@@ -1,0 +1,72 @@
+<section *ngIf="headerOrgdata" id="application-setting">
+  <div class="col-xs-12 organization-program white-box"> 
+    <h2 class="level3">{{headerOrgdata.casName | characters:30}}</h2>
+    <h2 class="level2">{{headerOrgdata.applicationName | characters:50}}</h2>
+    <h1 class="level1">{{OrglistPrograms.organizationName | characters:50}}</h1>
+    <hr/>
+    <section class="row app-details-read-only">
+      <div class="col-xs-6">
+        <h3>Created<span> {{OrglistPrograms.createdDate}}</span></h3>
+      </div>
+      <div class="col-xs-6">
+        <h3>Updated<span> {{OrglistPrograms.updatedDate}}</span></h3>
+      </div>
+      <div class="col-xs-6">
+        <h3>Institution <span> {{headerOrgdata.institutionName}}</span>
+        </h3>
+      </div>
+    </section>
+    <div class="org-info">
+      <i class="fa fa-info-circle"></i> This organization has enabled shared questions for all programs
+    </div>
+  </div>
+
+      <article id="program-questions" class="program-edit-home col-xs-12">
+        <div class="pro-org">
+            <div>
+                <h3 class="animated zoomIn">Programs and Applicant Gateways</h3>
+            </div> 
+            <hr/>
+            <div>
+                <p class="animated fadeIn">The Programs and Applicant Gateways below are available to view &amp; edit. Select one to begin.</p>
+            </div> 
+            <!--<div angular-stats watch-count=".watch-count">Watch Count: <span class="watch-count"></span></div>-->
+            <div class="row wizard-row">
+                <div class="col-xs-8">
+                    <div class="wizard">
+                        <a class="active"  (click)="lgModal.show()">Programs ({{OrglistPrograms.programs.length }})</a>
+                     </div>
+                </div>
+                <!--<div class="col-xs-4">
+                    <div class="view-all">
+                        <div class="col-xs-9 text-right">
+                            <p data-ng-hide="showViewAll" class="toggleClass">viewing all</p>
+                            <input type="text" data-ng-show="showViewAll" placeholder="Search" data-ng-model="searchPrograms" id="programSearch" class="toggleClass" autofocus/>
+                        </div>
+                        <div class="col-xs-3">
+                            <i class="fa fa-search" data-ng-click="toggleSearch()"></i>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <!--<div class="view-slide-in" ui-view="content"></div>-->
+            <app-programs-list [OrglistPrograms]="OrglistPrograms"></app-programs-list>
+        </div>
+    </article>
+</section>
+
+  <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+          <h4 class="modal-title">Large modal</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+      </div>
+    </div>
+  </div>
